@@ -1,6 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 
-const BACKEND_URL = "http://127.0.0.1:8000/command";
+const BASE_URL = "https://liftable-actionable-joeann.ngrok-free.dev";
+const COMMAND_URL = `${BASE_URL}/command`;
+const CHAT_URL = `${BASE_URL}/chat`;
+
+// Decide if this is an automation command or just chat
+const automationPhrases = [
+  "open chrome and go to gmail",
+  // add more exact phrases here if needed:
+  // "open notepad and write hello world",
+  // "take a screenshot and save it to desktop",
+];
+
+const isAutomationCommand = (text) => {
+  const normalized = text.trim().toLowerCase();
+  return automationPhrases.includes(normalized);
+};
 
 function App() {
   const [messages, setMessages] = useState([
@@ -120,7 +135,12 @@ function App() {
     setIsLoading(true);
 
     try {
-      const res = await fetch(BACKEND_URL, {
+      // 🔥 Decide which backend endpoint to hit
+      const endpoint = isAutomationCommand(userText)
+        ? COMMAND_URL
+        : CHAT_URL;
+
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: userText }),

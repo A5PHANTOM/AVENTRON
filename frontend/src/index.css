@@ -1,1 +1,213 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global JARVIS background */
+.jarvis-bg {
+  background:
+    radial-gradient(circle at top left, rgba(45, 212, 191, 0.18), transparent 55%),
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 55%),
+    radial-gradient(circle at bottom, rgba(30, 64, 175, 0.4), #020617);
+}
+
+/* Subtle grid overlay inside console */
+.jarvis-grid {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.7) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Message fade-in */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-bubble {
+  animation: fade-in-up 0.18s ease-out;
+}
+
+/* App shell pop-in */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.app-shell {
+  animation: pop-in 0.32s ease-out;
+}
+
+/* Intro panel typing-ish lines */
+@keyframes intro-line {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intro-panel {
+  animation: pop-in 0.35s ease-out;
+}
+
+.jarvis-line {
+  opacity: 0;
+  animation: intro-line 0.35s forwards;
+}
+
+.jarvis-line.delay-1 {
+  animation-delay: 0.25s;
+}
+
+.jarvis-line.delay-2 {
+  animation-delay: 0.5s;
+}
+
+/* Voice waveform bars */
+@keyframes bounce-bar {
+  0% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.3);
+  }
+}
+
+.voice-bar {
+  width: 3px;
+  height: 10px;
+  border-radius: 999px;
+  transform-origin: bottom;
+}
+
+.voice-bar-idle {
+  background-color: rgba(148, 163, 184, 0.5);
+  opacity: 0.4;
+}
+
+.voice-bar-active {
+  background-color: rgba(45, 212, 191, 0.9);
+  opacity: 1;
+  animation: bounce-bar 0.7s infinite ease-in-out;
+}
+
+/* Rotating HUD rings */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+}
+
+.hud-ring-slow {
+  animation: spin-slow 16s linear infinite;
+}
+
+.hud-ring-reverse {
+  animation: spin-reverse 24s linear infinite;
+}
+
+.hud-ring-pulse {
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+
+/* Mic hologram ring */
+@keyframes mic-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.8);
+    opacity: 0.9;
+    transform: scale(0.95);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(45, 212, 191, 0);
+    opacity: 0.2;
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(45, 212, 191, 0);
+    opacity: 0.1;
+    transform: scale(1);
+  }
+}
+
+.mic-ring {
+  border-radius: 9999px;
+  border: 1px solid rgba(45, 212, 191, 0.7);
+}
+
+.mic-ring-idle {
+  opacity: 0.4;
+}
+
+.mic-ring-active {
+  opacity: 1;
+  animation: mic-pulse 1.3s ease-out infinite;
+}
+
+/* HUD side panels */
+.hud-panel {
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(45, 212, 191, 0.4);
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.6));
+  box-shadow: 0 0 18px rgba(15, 23, 42, 0.9);
+}
+
+.hud-panel-right {
+  text-align: right;
+}
+
+.hud-panel-title {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(45, 212, 191, 0.9);
+  margin-bottom: 3px;
+}
